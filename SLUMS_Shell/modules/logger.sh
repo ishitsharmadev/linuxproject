@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ---------- CONFIG ----------
-LOG_FILE="/var/log/slums.log"
+LOG_FILE="./logs/slums.log"
 
 # ---------- FUNCTION ----------
 log_action() {
@@ -11,8 +11,9 @@ log_action() {
 
     # Check and create log file if needed
     if [ ! -f "$LOG_FILE" ]; then
-        sudo touch "$LOG_FILE"
-        sudo chmod 666 "$LOG_FILE"
+        mkdir -p "$(dirname "$LOG_FILE")"
+        touch "$LOG_FILE"
+        chmod 666 "$LOG_FILE"
     fi
 
     echo "[$TIMESTAMP] $ACTION by $USER" | tee -a "$LOG_FILE" > /dev/null
